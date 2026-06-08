@@ -1,0 +1,69 @@
+{
+  "url": "https://www.netflix.com/in/",
+  "hostname": "www.netflix.com",
+  "scan_time": 58.82,
+  "vulnerabilities": [
+    {
+      "type": "Missing Security Header",
+      "header": "Content-Security-Policy",
+      "severity": "HIGH",
+      "description": "Content-Security-Policy (CSP) header is missing. CSP helps prevent Cross-Site Scripting (XSS) and data injection attacks by specifying which content sources are allowed.",
+      "fix": "Add a Content-Security-Policy header. Example: Content-Security-Policy: default-src 'self'; script-src 'self'"
+    },
+    {
+      "type": "Missing Security Header",
+      "header": "Referrer-Policy",
+      "severity": "LOW",
+      "description": "Referrer-Policy header is missing. This header controls how much referrer information is sent with requests, protecting user privacy.",
+      "fix": "Add Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "type": "Missing Security Header",
+      "header": "Permissions-Policy",
+      "severity": "LOW",
+      "description": "Permissions-Policy header is missing. This header controls which browser features (camera, microphone, geolocation) the page can use.",
+      "fix": "Add Permissions-Policy header. Example: Permissions-Policy: camera=(), microphone=(), geolocation=()"
+    },
+    {
+      "type": "Information Disclosure",
+      "header": "Server",
+      "severity": "LOW",
+      "description": "Server header exposes server software: 'envoy'. Attackers can use this to find known vulnerabilities.",
+      "fix": "Remove or obfuscate the Server header in your web server configuration."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 80 (HTTP) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 443 (HTTPS) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/crossdomain.xml' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/crossdomain.xml' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Subdomains Discovered",
+      "severity": "INFO",
+      "description": "Found 11 subdomains: www.netflix.com, mail.netflix.com, blog.netflix.com, api.netflix.com, app.netflix.com, vpn.netflix.com, cdn.netflix.com, static.netflix.com, media.netflix.com, shop.netflix.com, m.netflix.com. Each subdomain increases the attack surface.",
+      "fix": "Audit all subdomains. Ensure unused subdomains are removed and all active ones are secured."
+    }
+  ],
+  "total_vulnerabilities": 8,
+  "summary": {
+    "HIGH": 1,
+    "MEDIUM": 0,
+    "LOW": 4,
+    "INFO": 3
+  },
+  "score": 63,
+  "grade": "C",
+  "id": 4
+}

@@ -1,0 +1,68 @@
+{
+  "url": "https://www.apple.com/in/store?afid=p240%7Cgo~cmp-11141176048~adg-112258962467~ad-799103667040_kwd-10778630~dev-c~ext-~prd-~mca-~nt-search&cid=aos-in-kwgo-txt-brand-brand--",
+  "hostname": "www.apple.com",
+  "scan_time": 47.89,
+  "vulnerabilities": [
+    {
+      "type": "Missing Security Header",
+      "header": "Referrer-Policy",
+      "severity": "LOW",
+      "description": "Referrer-Policy header is missing. This header controls how much referrer information is sent with requests, protecting user privacy.",
+      "fix": "Add Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "type": "Missing Security Header",
+      "header": "Permissions-Policy",
+      "severity": "LOW",
+      "description": "Permissions-Policy header is missing. This header controls which browser features (camera, microphone, geolocation) the page can use.",
+      "fix": "Add Permissions-Policy header. Example: Permissions-Policy: camera=(), microphone=(), geolocation=()"
+    },
+    {
+      "type": "Information Disclosure",
+      "header": "Server",
+      "severity": "LOW",
+      "description": "Server header exposes server software: 'Apple'. Attackers can use this to find known vulnerabilities.",
+      "fix": "Remove or obfuscate the Server header in your web server configuration."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 80 (HTTP) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 443 (HTTPS) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/robots.txt' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/robots.txt' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/sitemap.xml' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/sitemap.xml' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Subdomains Discovered",
+      "severity": "INFO",
+      "description": "Found 7 subdomains: www.apple.com, app.apple.com, portal.apple.com, support.apple.com, shop.apple.com, store.apple.com, mobile.apple.com. Each subdomain increases the attack surface.",
+      "fix": "Audit all subdomains. Ensure unused subdomains are removed and all active ones are secured."
+    }
+  ],
+  "total_vulnerabilities": 8,
+  "summary": {
+    "HIGH": 0,
+    "MEDIUM": 0,
+    "LOW": 5,
+    "INFO": 3
+  },
+  "score": 85,
+  "grade": "B",
+  "id": 6
+}

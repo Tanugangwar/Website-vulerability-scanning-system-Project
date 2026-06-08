@@ -1,0 +1,127 @@
+{
+  "url": "https://github.com/",
+  "hostname": "github.com",
+  "scan_time": 73.63,
+  "vulnerabilities": [
+    {
+      "type": "Missing Security Header",
+      "header": "Permissions-Policy",
+      "severity": "LOW",
+      "description": "Permissions-Policy header is missing. This header controls which browser features (camera, microphone, geolocation) the page can use.",
+      "fix": "Add Permissions-Policy header. Example: Permissions-Policy: camera=(), microphone=(), geolocation=()"
+    },
+    {
+      "type": "Information Disclosure",
+      "header": "Server",
+      "severity": "LOW",
+      "description": "Server header exposes server software: 'github.com'. Attackers can use this to find known vulnerabilities.",
+      "fix": "Remove or obfuscate the Server header in your web server configuration."
+    },
+    {
+      "type": "Reflected XSS Vulnerability",
+      "severity": "HIGH",
+      "description": "Form #4 (action: https://github.com/signup) reflects user input without sanitization. Payload 'javascript:alert(1)' was found in the response body.",
+      "fix": "Sanitize and encode all user inputs before rendering them in HTML. Use output encoding functions appropriate for the context (HTML, JavaScript, URL, CSS). Implement a strong Content-Security-Policy header."
+    },
+    {
+      "type": "Reflected XSS Vulnerability",
+      "severity": "HIGH",
+      "description": "Form #5 (action: https://github.com/signup) reflects user input without sanitization. Payload 'javascript:alert(1)' was found in the response body.",
+      "fix": "Sanitize and encode all user inputs before rendering them in HTML. Use output encoding functions appropriate for the context (HTML, JavaScript, URL, CSS). Implement a strong Content-Security-Policy header."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 22 (SSH) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 80 (HTTP) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 443 (HTTPS) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/administrator' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/administrator' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/login' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/login' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/wp-admin' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/wp-admin' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "HIGH",
+      "description": "Path '/phpmyadmin' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/phpmyadmin' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/cpanel' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/cpanel' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/webmail' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/webmail' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/backup' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/backup' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/robots.txt' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/robots.txt' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "MEDIUM",
+      "description": "Path '/server-status' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/server-status' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/crossdomain.xml' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/crossdomain.xml' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Subdomains Discovered",
+      "severity": "INFO",
+      "description": "Found 10 subdomains: www.github.com, admin.github.com, blog.github.com, test.github.com, api.github.com, ns1.github.com, ns2.github.com, docs.github.com, support.github.com, shop.github.com. Each subdomain increases the attack surface.",
+      "fix": "Audit all subdomains. Ensure unused subdomains are removed and all active ones are secured."
+    }
+  ],
+  "total_vulnerabilities": 18,
+  "summary": {
+    "HIGH": 3,
+    "MEDIUM": 1,
+    "LOW": 10,
+    "INFO": 4
+  },
+  "score": 0,
+  "grade": "F",
+  "id": 7
+}

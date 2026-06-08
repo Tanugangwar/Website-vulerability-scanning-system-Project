@@ -1,0 +1,95 @@
+{
+  "url": "https://www.google.com",
+  "hostname": "www.google.com",
+  "scan_time": 32.62,
+  "vulnerabilities": [
+    {
+      "type": "Missing Security Header",
+      "header": "Content-Security-Policy",
+      "severity": "HIGH",
+      "description": "Content-Security-Policy (CSP) header is missing. CSP helps prevent Cross-Site Scripting (XSS) and data injection attacks by specifying which content sources are allowed.",
+      "fix": "Add a Content-Security-Policy header. Example: Content-Security-Policy: default-src 'self'; script-src 'self'"
+    },
+    {
+      "type": "Missing Security Header",
+      "header": "X-Content-Type-Options",
+      "severity": "MEDIUM",
+      "description": "X-Content-Type-Options header is missing. Without 'nosniff', browsers may MIME-sniff responses, potentially executing malicious content.",
+      "fix": "Add X-Content-Type-Options: nosniff"
+    },
+    {
+      "type": "Missing Security Header",
+      "header": "Strict-Transport-Security",
+      "severity": "HIGH",
+      "description": "HTTP Strict Transport Security (HSTS) header is missing. HSTS ensures browsers always connect via HTTPS, preventing downgrade attacks.",
+      "fix": "Add Strict-Transport-Security header. Example: Strict-Transport-Security: max-age=31536000; includeSubDomains"
+    },
+    {
+      "type": "Missing Security Header",
+      "header": "Referrer-Policy",
+      "severity": "LOW",
+      "description": "Referrer-Policy header is missing. This header controls how much referrer information is sent with requests, protecting user privacy.",
+      "fix": "Add Referrer-Policy: strict-origin-when-cross-origin"
+    },
+    {
+      "type": "Missing Security Header",
+      "header": "Permissions-Policy",
+      "severity": "LOW",
+      "description": "Permissions-Policy header is missing. This header controls which browser features (camera, microphone, geolocation) the page can use.",
+      "fix": "Add Permissions-Policy header. Example: Permissions-Policy: camera=(), microphone=(), geolocation=()"
+    },
+    {
+      "type": "Information Disclosure",
+      "header": "Server",
+      "severity": "LOW",
+      "description": "Server header exposes server software: 'gws'. Attackers can use this to find known vulnerabilities.",
+      "fix": "Remove or obfuscate the Server header in your web server configuration."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 80 (HTTP) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Open Port Detected",
+      "severity": "INFO",
+      "description": "Port 443 (HTTPS) is open.",
+      "fix": "Ensure only necessary ports are open. Review firewall rules."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/robots.txt' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/robots.txt' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/sitemap.xml' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/sitemap.xml' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Exposed Path",
+      "severity": "LOW",
+      "description": "Path '/crossdomain.xml' is publicly accessible (HTTP 200). This may expose sensitive data or admin interfaces.",
+      "fix": "Restrict access to '/crossdomain.xml' using authentication, firewall rules, or server configuration. Remove unnecessary files."
+    },
+    {
+      "type": "Subdomains Discovered",
+      "severity": "INFO",
+      "description": "Found 14 subdomains: www.google.com, mail.google.com, admin.google.com, blog.google.com, api.google.com, vpn.google.com, ns1.google.com, ns2.google.com, docs.google.com, support.google.com, shop.google.com, store.google.com, m.google.com, mobile.google.com. Each subdomain increases the attack surface.",
+      "fix": "Audit all subdomains. Ensure unused subdomains are removed and all active ones are secured."
+    }
+  ],
+  "total_vulnerabilities": 12,
+  "summary": {
+    "HIGH": 2,
+    "MEDIUM": 1,
+    "LOW": 6,
+    "INFO": 3
+  },
+  "score": 22,
+  "grade": "F",
+  "id": 1
+}
