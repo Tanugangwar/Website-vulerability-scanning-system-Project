@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — VulnScanner</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="nav-container">
+                <div class="logo">🛡️ VulnScanner</div>
+                <div class="nav-auth">
+                    <a href="index.html" class="btn-secondary btn-sm">Scanner</a>
+                    <a href="history.html" class="btn-secondary btn-sm">History</a>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <a href="/api/logout" class="btn-secondary btn-sm" style="color: var(--accent-rose);"><i class="fas fa-sign-out-alt"></i></a>
+                </div>
+            </div>
+            <h1 class="header__title">Dashboard</h1>
+            <p class="header__subtitle">Manage your security scans and view detailed insights.</p>
+        </header>
+
+        <div class="scan-card">
+            <h2 style="margin-bottom: 1.5rem; font-size: 1.25rem;">New Scan</h2>
+            <form id="scanForm" class="scan-form">
+                <div class="scan-form__input-wrapper">
+                    <span class="scan-form__icon">🔗</span>
+                    <input type="text" id="scanUrl" class="scan-form__input" placeholder="https://example.com" required>
+                </div>
+                <button type="submit" id="scanBtn" class="scan-form__btn">Scan Now</button>
+            </form>
+            
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner"></div>
+                <div class="loading-text">Scanning in progress…</div>
+            </div>
+
+            <p id="statusMsg" style="margin-top: 1rem; font-size: 0.9rem; text-align: center; color: var(--text-secondary); display: none;"></p>
+        </div>
+
+        <div id="resultsArea" class="results">
+            <div class="score-dashboard">
+                <div class="score-circle">
+                    <svg viewBox="0 0 160 160">
+                        <circle class="score-circle__bg" cx="80" cy="80" r="70"></circle>
+                        <circle class="score-circle__fg" id="scoreArc" cx="80" cy="80" r="70"></circle>
+                    </svg>
+                    <div class="score-circle__text">
+                        <div class="score-number" id="scoreValue">0</div>
+                        <div class="score-label">Score</div>
+                    </div>
+                </div>
+                <div class="score-details">
+                    <div class="score-grade">Overall Security Standing</div>
+                    <div class="score-meta">
+                        <span id="resultUrl"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vuln-list" id="vulnerabilitiesList">
+                <!-- Vulnerability cards will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        const toggle = document.getElementById('themeToggle');
+        toggle.addEventListener('click', () => {
+            const current = document.body.getAttribute('data-theme');
+            const target = current === 'light' ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', target);
+            localStorage.setItem('theme', target);
+            toggle.innerHTML = target === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.body.setAttribute('data-theme', savedTheme);
+        toggle.innerHTML = savedTheme === 'light' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    </script>
+</body>
+</html>

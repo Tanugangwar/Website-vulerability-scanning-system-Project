@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Website Vulnerability Scanning System — Scan websites for security vulnerabilities including XSS, SQL Injection, missing headers, and SSL issues." />
+  <title>VulnScanner — Website Vulnerability Scanner</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- ==================== HEADER ==================== -->
+    <header class="header" id="header">
+      <div class="nav-container">
+        <div class="logo">🛡️ VulnScanner</div>
+        <div id="nav-auth" class="nav-auth">
+          <!-- Auth buttons injected by JS -->
+        </div>
+      </div>
+      <div class="header__icon">🛡️</div>
+      <h1 class="header__title">VulnScanner</h1>
+      <p class="header__subtitle">
+        Analyze websites for security vulnerabilities. Detect missing headers,
+        SSL issues, XSS, SQL Injection, and more.
+      </p>
+    </header>
+
+    <!-- ==================== ETHICAL WARNING ==================== -->
+    <div class="warning-banner" id="ethical-warning">
+      <span class="warning-banner__icon">⚠️</span>
+      <span>
+        <strong>Ethical Use Only:</strong> Only scan websites you own or have
+        explicit authorization to test. Unauthorized scanning may violate laws.
+      </span>
+    </div>
+
+    <!-- ==================== SCAN INPUT ==================== -->
+    <div class="scan-card" id="scan-card">
+      <form class="scan-form" id="scan-form">
+        <div class="scan-form__input-wrapper">
+          <span class="scan-form__icon">🔗</span>
+          <input
+            type="text"
+            id="url-input"
+            class="scan-form__input"
+            placeholder="Enter website URL (e.g., https://example.com)"
+            autocomplete="url"
+            required
+          />
+        </div>
+        <button type="submit" class="scan-form__btn" id="scan-btn">
+          <span>🔍</span>
+          <span>Scan</span>
+        </button>
+      </form>
+
+      <!-- Scan Options -->
+      <div class="scan-options" id="scan-options">
+        <span class="scan-options__label">Scan Modules</span>
+
+        <label class="option-chip option-chip--active" id="opt-headers">
+          <input type="checkbox" name="headers" checked />
+          <span class="option-chip__dot"></span>
+          Headers
+        </label>
+        <label class="option-chip option-chip--active" id="opt-ssl">
+          <input type="checkbox" name="ssl" checked />
+          <span class="option-chip__dot"></span>
+          SSL/TLS
+        </label>
+        <label class="option-chip option-chip--active" id="opt-xss">
+          <input type="checkbox" name="xss" checked />
+          <span class="option-chip__dot"></span>
+          XSS
+        </label>
+        <label class="option-chip option-chip--active" id="opt-sqli">
+          <input type="checkbox" name="sqli" checked />
+          <span class="option-chip__dot"></span>
+          SQL Injection
+        </label>
+        <label class="option-chip" id="opt-ports">
+          <input type="checkbox" name="ports" />
+          <span class="option-chip__dot"></span>
+          Port Scan
+        </label>
+        <label class="option-chip" id="opt-directories">
+          <input type="checkbox" name="directories" />
+          <span class="option-chip__dot"></span>
+          Directories
+        </label>
+        <label class="option-chip" id="opt-subdomains">
+          <input type="checkbox" name="subdomains" />
+          <span class="option-chip__dot"></span>
+          Subdomains
+        </label>
+      </div>
+
+      <!-- Error display -->
+      <div class="error-message" id="error-message">
+        <span>❌</span>
+        <span id="error-text"></span>
+      </div>
+    </div>
+
+    <!-- ==================== LOADING STATE ==================== -->
+    <div class="loading-overlay" id="loading">
+      <div class="spinner"></div>
+      <div class="loading-text">Scanning target website…</div>
+      <div class="loading-steps" id="loading-steps">
+        <div class="loading-step" data-step="headers">⏳ Checking security headers…</div>
+        <div class="loading-step" data-step="ssl">⏳ Validating SSL certificate…</div>
+        <div class="loading-step" data-step="xss">⏳ Testing for XSS vulnerabilities…</div>
+        <div class="loading-step" data-step="sqli">⏳ Testing for SQL injection…</div>
+        <div class="loading-step" data-step="ports">⏳ Scanning ports…</div>
+        <div class="loading-step" data-step="dirs">⏳ Brute-forcing directories…</div>
+        <div class="loading-step" data-step="subs">⏳ Discovering subdomains…</div>
+      </div>
+    </div>
+
+    <!-- ==================== RESULTS ==================== -->
+    <div class="results" id="results">
+      <!-- Score Dashboard -->
+      <div class="score-dashboard" id="score-dashboard">
+        <div class="score-circle" id="score-circle">
+          <svg viewBox="0 0 160 160">
+            <circle class="score-circle__bg" cx="80" cy="80" r="70"></circle>
+            <circle class="score-circle__fg" id="score-arc" cx="80" cy="80" r="70"></circle>
+          </svg>
+          <div class="score-circle__text">
+            <div class="score-number" id="score-number">0</div>
+            <div class="score-label">Score</div>
+          </div>
+        </div>
+
+        <div class="score-details">
+          <div class="score-grade">
+            Security Grade:
+            <span class="score-grade__letter" id="score-grade">?</span>
+          </div>
+          <div class="score-meta">
+            <span id="result-url"></span>
+            <span id="result-time"></span>
+            <span id="result-total"></span>
+          </div>
+          <div class="severity-bars" id="severity-bars">
+            <div class="severity-bar">
+              <span class="severity-bar__dot severity-bar__dot--high"></span>
+              High: <strong id="count-high">0</strong>
+            </div>
+            <div class="severity-bar">
+              <span class="severity-bar__dot severity-bar__dot--medium"></span>
+              Medium: <strong id="count-medium">0</strong>
+            </div>
+            <div class="severity-bar">
+              <span class="severity-bar__dot severity-bar__dot--low"></span>
+              Low: <strong id="count-low">0</strong>
+            </div>
+            <div class="severity-bar">
+              <span class="severity-bar__dot severity-bar__dot--info"></span>
+              Info: <strong id="count-info">0</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action buttons -->
+      <div class="result-actions" id="result-actions">
+        <button class="btn-secondary" id="btn-download-pdf">
+          📄 Download PDF Report
+        </button>
+        <button class="btn-secondary" id="btn-new-scan">
+          🔄 New Scan
+        </button>
+      </div>
+
+      <!-- Vulnerability List -->
+      <div class="vuln-list" id="vuln-list"></div>
+    </div>
+
+    <!-- ==================== SCAN HISTORY ==================== -->
+    <div class="history-section" id="history-section">
+      <h2 class="section-title">📋 Scan History</h2>
+      <table class="history-table" id="history-table">
+        <thead>
+          <tr>
+            <th>URL</th>
+            <th>Score</th>
+            <th>Grade</th>
+            <th>Vulnerabilities</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="history-body"></tbody>
+      </table>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+      VulnScanner &copy; 2026 — For educational and authorized testing purposes only.
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

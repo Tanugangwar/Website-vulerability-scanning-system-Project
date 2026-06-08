@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — VulnScanner</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="auth-page">
+  <div class="container">
+    <header class="header">
+      <div class="logo">🛡️ VulnScanner</div>
+      <h1 class="header__title">Welcome Back</h1>
+      <p class="header__subtitle">Log in to your account to save and view your scan history.</p>
+    </header>
+
+    <div class="scan-card" style="max-width: 450px; margin: 0 auto;">
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label class="scan-options__label">Username</label>
+          <div class="scan-form__input-wrapper">
+            <span class="scan-form__icon">👤</span>
+            <input type="text" id="username" class="scan-form__input" placeholder="Enter username" required />
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: 1.5rem;">
+          <label class="scan-options__label">Password</label>
+          <div class="scan-form__input-wrapper">
+            <span class="scan-form__icon">🔒</span>
+            <input type="password" id="password" class="scan-form__input" placeholder="Enter password" required />
+          </div>
+        </div>
+        <button type="submit" class="scan-form__btn" style="width: 100%; margin-top: 2rem; justify-content: center;">
+          Sign In
+        </button>
+      </form>
+
+      <div style="margin-top: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-secondary);">
+        Don't have an account? <a href="signup.html" style="color: var(--accent-indigo); font-weight: 600;">Sign Up</a>
+      </div>
+      <div style="margin-top: 1rem; text-align: center;">
+        <a href="index.html" style="color: var(--text-muted); font-size: 0.8rem;">← Back to Scanner</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+          window.location.href = 'index.html';
+        } else {
+          alert(data.error || 'Login failed');
+        }
+      } catch (err) {
+        alert('An error occurred. Please try again.');
+      }
+    });
+  </script>
+</body>
+</html>
