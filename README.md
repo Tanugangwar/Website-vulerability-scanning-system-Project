@@ -88,5 +88,5 @@ The project follows a **Clean Modular Architecture**:
 - Do not use this tool for aggressive scanning or illegal activities.
 
 ---
-**Author**: [Tanu gangwar/Github]  
+**Author**: [Your Name/Github]  
 **License**: MIT

@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+.env
+database/users.db
+reports/
+.venv/
+env/
+.vscode/
+.idea/
